@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ThemeProvider from "@/providers/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import React from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,15 +23,28 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  dialog,
 }: Readonly<{
   children: React.ReactNode;
+  dialog: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            {dialog}
+            <Toaster />
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

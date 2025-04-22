@@ -1,0 +1,16 @@
+import { getTests } from "@/actions/test";
+import TestCardPublic from "@/components/custom/test-card-public";
+import PublicTestsCSR from "./_components/public-tests-csr";
+import PublicTestsProvider from "@/providers/public-tests-provider";
+
+export default async function Home() {
+  const resp = await getTests({});
+
+  return (
+    <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 p-5">
+      <PublicTestsProvider defaultValues={resp.data}>
+        <PublicTestsCSR />
+      </PublicTestsProvider>
+    </div>
+  );
+}
