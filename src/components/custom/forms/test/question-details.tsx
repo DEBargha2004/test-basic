@@ -16,11 +16,7 @@ export default function TestQuestionDetails({
 
   const handleCreateNewQuestion = (index: number) => {
     const prevQuestions = form.getValues("questions");
-    prevQuestions.splice(
-      index,
-      0,
-      defaultQuestion(index + 1, { positive: 1, negative: 0 })
-    );
+    prevQuestions.splice(index, 0, defaultQuestion(index + 1));
 
     form.setValue("questions", prevQuestions);
   };

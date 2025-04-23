@@ -40,7 +40,7 @@ export default function Favourites({
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
       <PopoverContent className="flex flex-col justify-start items-center  p-0">
-        <div className="p-4 w-full">
+        <div className="p-4 w-full space-y-2">
           {!wishlists.length && (
             <p className="text-center">Your Wishlist is empty</p>
           )}

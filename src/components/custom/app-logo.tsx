@@ -5,6 +5,7 @@ import React from "react";
 
 const bungeeSpice = Bungee_Spice({
   weight: "400",
+  subsets: ["latin"],
 });
 
 export default function AppLogo({

@@ -225,7 +225,7 @@ export async function getRootTestInfo(testId: string) {
         'title', ${testQuestions.title},
         'serial', ${testQuestions.serial},
         'options', ${testQuestions.options},
-        'correctOptionId', ${testQuestions.correctOptionId},
+        'correctOptionId', ${testQuestions.correctOptionId}
       )
     )`,
     })
