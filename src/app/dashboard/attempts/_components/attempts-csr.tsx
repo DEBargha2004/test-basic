@@ -25,21 +25,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { QUERY_LIMIT } from "@/constants/query";
 import { getImageUrl } from "@/lib/url";
 import { formatDuration, getAcronym } from "@/lib/utils";
+import { useAttempts } from "@/providers/attempts-provider";
 import { EllipsisVertical, Eye } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useQueryState } from "nuqs";
 
-export default function CSR({
-  defaultValue,
-}: {
-  defaultValue: TUsersTestAttempts[];
-}) {
-  const [attempts, setAttempts] = useState(defaultValue);
-
+export default function AttemptsCSR() {
+  const { attempts, page } = useAttempts();
+  const [query] = useQueryState("q");
+  const [currentPage] = useQueryState("page");
+  const currentPageNum = Number(currentPage || 0);
   return (
-    <Card className="p-0">
+    <Card className="p-0 gap-0">
       <Table>
         <TableHeader>
           <TableRow>
@@ -110,13 +110,18 @@ export default function CSR({
         </TableBody>
       </Table>
       <CardFooter className="p-4 border-t">
-        <Pagination className="flex justify-end">
+        <Pagination className="flex justify-between">
+          <p>
+            showing {} - {} of {attempts?.[0]?.count}
+          </p>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious href="#" />
+              <PaginationPrevious
+                href={`?q=${query ?? ""}&page=${page.prev}`}
+              />
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext href="#" />
+              <PaginationNext href={`?q=${query ?? ""}&page=${page.next}`} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>

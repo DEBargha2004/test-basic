@@ -28,8 +28,8 @@ export default async function Page({
 
   if (!resp.success)
     return (
-      <main className="grid h-full place-content-center">
-        <Alert>
+      <main className="w-full h-full place-content-center">
+        <Alert variant={"destructive"}>
           <AlertCircle />
           <AlertTitle>Error</AlertTitle>
           <AlertDescription>{resp.message}</AlertDescription>

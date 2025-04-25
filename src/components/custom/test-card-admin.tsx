@@ -51,7 +51,9 @@ export default function TestCardAdmin({ data }: { data: Test }) {
   return (
     <div className="rounded-xl border overflow-hidden h-full flex flex-col">
       <section className="w-full aspect-video overflow-hidden border-b shrink-0">
-        <TestThumbnail alt={data.title} path={data.thumbnail ?? ""} />
+        <Link href={`/tests/${data.id}`}>
+          <TestThumbnail alt={data.title} path={data.thumbnail ?? ""} />
+        </Link>
       </section>
       <section className="p-3 h-full grid gap-2">
         <div className="flex justify-start items-center gap-2">

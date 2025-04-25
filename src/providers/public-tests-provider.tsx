@@ -4,12 +4,10 @@ import {
   addToWishlist,
   deleteFromWishlist,
   PublicTestView,
-  Test,
 } from "@/actions/test";
-import { TestCardMiniViewProps } from "@/components/custom/test-card-mini-view";
 import { wishlistsAtom } from "@/store/wishlist";
 import { produce } from "immer";
-import { useAtom, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { createContext, useContext, useState } from "react";
 import { toast } from "sonner";
 
@@ -30,9 +28,11 @@ const publicTestsContext = createContext<(State & Actions) | undefined>(
 export default function PublicTestsProvider({
   children,
   defaultValues,
+  removeAfterUnWishlist = false,
 }: {
   children: React.ReactNode;
   defaultValues?: PublicTestView[];
+  removeAfterUnWishlist?: boolean;
 }) {
   const [tests, setTests] = useState<PublicTestView[]>(defaultValues ?? []);
   const setWishlistedTests = useSetAtom(wishlistsAtom);
@@ -75,6 +75,9 @@ export default function PublicTestsProvider({
           const index = tests.findIndex((test) => test.id === testId);
           if (index !== -1) {
             tests[index].isWishlisted = 0;
+            if (removeAfterUnWishlist) {
+              tests.splice(index, 1);
+            }
           }
         })
       );

@@ -1,4 +1,4 @@
-import { getWishlistOfUser } from "@/actions/test";
+import { getWishlistOfUserBasic } from "@/actions/test";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -21,7 +21,7 @@ export default function Favourites({
   const [wishlists, setWishlists] = useAtom(wishlistsAtom);
 
   useEffect(() => {
-    getWishlistOfUser().then((res) => {
+    getWishlistOfUserBasic().then((res) => {
       if (res.success) {
         setWishlists(
           res.data?.map((t) => ({

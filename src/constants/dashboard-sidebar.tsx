@@ -1,18 +1,15 @@
 import { TIcon } from "@/types/icon";
-import { Layout, NotebookPen, PenSquare, UsersRound } from "lucide-react";
+import { TBasicListItem, TSidebarItem } from "@/types/sidebar-item";
+import {
+  Layout,
+  NotebookPen,
+  PenSquare,
+  Star,
+  UserPen,
+  UserRound,
+  UsersRound,
+} from "lucide-react";
 import micromatch from "micromatch";
-
-type TSidebarItem = TBasicListItem & {
-  href: string;
-  pattern?: string;
-  isActive: (pathname: string) => boolean;
-  icon: TIcon;
-};
-
-export type TBasicListItem = {
-  id: string;
-  label: string;
-};
 
 export const dashboardSidebarItems: TSidebarItem[] = [
   {
@@ -53,7 +50,37 @@ export const dashboardSidebarItems: TSidebarItem[] = [
     isActive(pathname) {
       return micromatch.isMatch(pathname, this.pattern!);
     },
+    icon: UserPen,
+  },
+  {
+    id: "wishlist",
+    label: "Wishlist",
+    href: "/dashboard/wishlist",
+    icon: Star,
+    pattern: "/dashboard/wishlist",
+    isActive(pathname) {
+      return micromatch.isMatch(pathname, this.pattern!);
+    },
+  },
+  {
+    id: "your-attempts",
+    label: "Your Attempts",
+    href: "/dashboard/your-attempts",
+    pattern: "/dashboard/your-attempts",
     icon: PenSquare,
+    isActive(pathname) {
+      return micromatch.isMatch(pathname, this.pattern!);
+    },
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    href: "/dashboard/profile",
+    pattern: "/dashboard/profile",
+    icon: UserRound,
+    isActive(pathname) {
+      return micromatch.isMatch(pathname, this.pattern!);
+    },
   },
 ];
 

@@ -18,7 +18,7 @@ export default function DashbaordNavbar() {
       )}
     >
       <AppLogo />
-      <ModeToggle className="ml-auto" />
+      <ModeToggle className="ml-auto size-10" />
       <UserDropdownMenu>
         <Avatar className="size-10">
           <AvatarImage src={getImageUrl(data?.user?.image ?? "")} />

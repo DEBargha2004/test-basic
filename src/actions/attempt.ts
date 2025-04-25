@@ -1,5 +1,6 @@
 "use server";
 
+import { QUERY_LIMIT } from "@/constants/query";
 import {
   answered,
   AttemptStatus,
@@ -530,7 +531,15 @@ export type TUsersTestAttempts = NonNullable<
   Awaited<ReturnType<typeof getUsersTestAttempts>>["data"]
 >[number];
 
-export async function getUsersTestAttempts() {
+export async function getUsersTestAttempts({
+  isUser = false,
+  q,
+  page = 0,
+}: {
+  isUser?: boolean;
+  q?: string;
+  page?: number;
+}) {
   const userInfo = await auth.api.getSession({
     headers: await headers(),
   });
@@ -554,12 +563,36 @@ export async function getUsersTestAttempts() {
         email: users.email,
         image: users.image,
       },
+      count: sql<number>`count(*) over ()`,
     })
     .from(testAttempts)
     .leftJoin(tests, eq(tests.id, testAttempts.testId))
     .leftJoin(users, eq(users.id, testAttempts.userId))
-    .where(eq(tests.userId, user.id))
-    .orderBy(desc(testAttempts.createdAt));
+    .where(
+      and(
+        isUser ? eq(testAttempts.userId, user.id) : eq(tests.userId, user.id),
+        ...(q !== undefined
+          ? [
+              or(
+                gt(sql`SIMILARITY(${tests.title}, ${q})`, 0.2),
+                gt(sql`SIMILARITY(${users.name}, ${q})`, 0.2),
+                gt(sql`SIMILARITY(${users.email}, ${q})`, 0.2)
+              ),
+            ]
+          : [])
+      )
+    )
+    .orderBy(
+      q !== undefined
+        ? sql`GREATEST(
+          SIMILARITY(${tests.title}, ${q}),
+          SIMILARITY(${users.name}, ${q}),
+          SIMILARITY(${users.email}, ${q})
+        )`
+        : desc(testAttempts.createdAt)
+    )
+    .offset(page * QUERY_LIMIT)
+    .limit(QUERY_LIMIT);
 
   return {
     success: true,

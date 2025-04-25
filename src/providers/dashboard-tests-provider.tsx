@@ -28,10 +28,10 @@ export default function DashboardTestsProvider({
   const [tests, setTests] = useState<Test[]>(defaultTests);
   const [status] = useQueryState("status");
 
-  const filterTests = (tests: Test[]) => {
+  const filterTests = () => {
     // console.log({ status });
-    if (!status || status === "all") return tests;
-    return tests.filter((test) => test.publishingStatus === status);
+    if (!status || status === "all") return false;
+    return true;
   };
 
   const updateTest = (id: number, data: Partial<Test>) => {
@@ -40,7 +40,8 @@ export default function DashboardTestsProvider({
         const testIdx = tests.findIndex((t) => t.id === id);
         if (testIdx !== -1) {
           Object.assign(tests[testIdx], data);
-          tests.splice(testIdx, 1);
+          const res = filterTests();
+          if (res) tests.splice(testIdx, 1);
         }
       })
     );

@@ -1,17 +1,23 @@
 "use server";
 
+import { QUERY_LIMIT } from "@/constants/query";
 import { testAttempts, tests, users } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { and, asc, desc, eq, gt, isNotNull, max, or, sql } from "drizzle-orm";
-import { alias } from "drizzle-orm/pg-core";
 import { headers } from "next/headers";
 
 export type TAttempter = NonNullable<
   Awaited<ReturnType<typeof getAttempters>>["data"]
 >[number];
 
-export async function getAttempters({ query }: { query?: string }) {
+export async function getAttempters({
+  query,
+  page = 0,
+}: {
+  query?: string;
+  page?: number;
+}) {
   const userInfo = await auth.api.getSession({
     headers: await headers(),
   });
@@ -25,6 +31,7 @@ export async function getAttempters({ query }: { query?: string }) {
       name: users.name,
       image: users.image,
       email: users.email,
+      count: sql<number>`count(*) over()`,
     })
     .from(testAttempts)
     .leftJoin(tests, eq(tests.id, testAttempts.testId))
@@ -50,7 +57,9 @@ export async function getAttempters({ query }: { query?: string }) {
             SIMILARITY(${users.email},${query})
         )`
         : users.name
-    );
+    )
+    .offset(page * QUERY_LIMIT)
+    .limit(QUERY_LIMIT);
   return {
     success: true,
     data: attempters,

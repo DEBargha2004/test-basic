@@ -393,7 +393,7 @@ export async function updateTestStatus(testId: string, status: string) {
     .set({ publishingStatus: status })
     .where(eq(tests.id, Number(testId)));
 
-  return { success: true, message: "Test archived successfully" };
+  return { success: true, message: "Test status updated successfully" };
 }
 
 async function getWishlist_Internal(userId: string) {
@@ -413,7 +413,7 @@ async function getWishlist_Internal(userId: string) {
     .orderBy(desc(tests.createdAt));
 }
 
-export async function getWishlistOfUser() {
+export async function getWishlistOfUserBasic() {
   const userInfo = await auth.api.getSession({
     headers: await headers(),
   });
@@ -423,6 +423,52 @@ export async function getWishlistOfUser() {
   const wishlist = await getWishlist_Internal(user.id);
 
   return { success: true, data: wishlist };
+}
+
+export async function getWishlistOfUser() {
+  const userInfo = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!userInfo) return { success: false, message: "Not logged in" };
+
+  const { user } = userInfo;
+
+  const resp = await db
+    .select({
+      id: tests.id,
+      title: tests.title,
+      description: tests.description,
+      thumbnail: tests.thumbnail,
+      duration: tests.duration,
+      totalMarks: tests.totalMarks,
+      passMarks: tests.passMarks,
+      publishingStatus: tests.publishingStatus,
+      createdAt: tests.createdAt,
+      questionsCount: count(testQuestions.id),
+      attemptsCount: countDistinct(testAttempts.id),
+      isWishlisted: countDistinct(wishlists.testId),
+      user: {
+        name: users.name,
+        image: users.image,
+        id: users.id,
+      },
+    })
+    .from(tests)
+    .leftJoin(testQuestions, eq(tests.id, testQuestions.testId))
+    .leftJoin(users, eq(users.id, tests.userId))
+    .leftJoin(wishlists, eq(tests.id, wishlists.testId))
+    .leftJoin(testAttempts, eq(testAttempts.testId, tests.id))
+    .where(
+      and(
+        eq(tests.publishingStatus, published.id),
+        isNull(testQuestions.deletedAt),
+        eq(wishlists.userId, user.id)
+      )
+    )
+    .orderBy(desc(tests.createdAt))
+    .groupBy(tests.id, users.name, users.image, users.id);
+
+  return { success: true, data: resp };
 }
 
 export async function addToWishlist(testId: string) {
