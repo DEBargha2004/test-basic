@@ -1,7 +1,9 @@
 import { getTests } from "@/actions/test";
-import TestCardPublic from "@/components/custom/test-card-public";
 import PublicTestsCSR from "./_components/public-tests-csr";
 import PublicTestsProvider from "@/providers/public-tests-provider";
+
+export const dynamic = "auto";
+export const revalidate = 10;
 
 export default async function Home() {
   const resp = await getTests({});

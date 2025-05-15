@@ -38,6 +38,10 @@ export default function AttemptsCSR() {
   const [query] = useQueryState("q");
   const [currentPage] = useQueryState("page");
   const currentPageNum = Number(currentPage || 0);
+
+  const entryStarting =
+    QUERY_LIMIT * currentPageNum + (attempts.length ? 1 : 0);
+  const entryEnding = QUERY_LIMIT * currentPageNum + attempts.length;
   return (
     <Card className="p-0 gap-0">
       <Table>
@@ -111,8 +115,9 @@ export default function AttemptsCSR() {
       </Table>
       <CardFooter className="p-4 border-t">
         <Pagination className="flex justify-between">
-          <p>
-            showing {} - {} of {attempts?.[0]?.count}
+          <p className="text-sm">
+            showing {entryStarting} - {entryEnding} of {attempts?.[0]?.count}{" "}
+            records
           </p>
           <PaginationContent>
             <PaginationItem>

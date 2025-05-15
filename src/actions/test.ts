@@ -102,7 +102,7 @@ export async function getTestsOfUser({
       passMarks: tests.passMarks,
       publishingStatus: tests.publishingStatus,
       createdAt: tests.createdAt,
-      questionsCount: count(testQuestions.id),
+      questionsCount: countDistinct(testQuestions.id),
       attemptsCount: countDistinct(testAttempts.id),
       user: {
         name: users.name,

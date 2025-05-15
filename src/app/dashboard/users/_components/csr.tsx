@@ -44,21 +44,25 @@ export default function CSR({
     next: nextPage,
   });
 
+  const currentPageNum = Number(page || 0);
+  const entryStarting =
+    QUERY_LIMIT * currentPageNum + (attempters.length ? 1 : 0);
+  const entryEnding = QUERY_LIMIT * currentPageNum + attempters.length;
+
   useEffect(() => {
     getAttempters({ query: debouncedQuery ?? "" }).then((res) => {
       if (!res.success) return toast.error(res.message);
       setAttempters(res.data ?? []);
-      const currentPage = Number(page || 0);
       const minPage = 0;
       const maxPage = Math.floor(
         Number(res.data?.[0]?.count ?? 0) / QUERY_LIMIT
       );
 
-      const prevPage = Math.max(minPage, currentPage - 1);
-      const nextPage = Math.min(maxPage, currentPage + 1);
+      const prevPage = Math.max(minPage, currentPageNum - 1);
+      const nextPage = Math.min(maxPage, currentPageNum + 1);
       setPage({ prev: prevPage, next: nextPage });
     });
-  }, [debouncedQuery, page]);
+  }, [debouncedQuery, currentPageNum]);
 
   return (
     <Card className="p-0 gap-0">
@@ -91,8 +95,9 @@ export default function CSR({
       </Table>
       <CardFooter className="p-4 border-t">
         <Pagination className="flex justify-between">
-          <p>
-            showing {} - {} of {attempters?.[0]?.count}
+          <p className="text-sm">
+            showing {entryStarting} - {entryEnding} of {attempters?.[0]?.count}{" "}
+            records
           </p>
           <PaginationContent>
             <PaginationItem>
