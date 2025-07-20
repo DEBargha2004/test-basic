@@ -57,7 +57,7 @@ function AttemptQuestionResponse({
         <section className="space-y-1">
           <h1 className="font-semibold">Question {serial}</h1>
           {!selectedOptionId ? (
-            <p className="text-destructive text-xs">YOU DIDN'T ATTEMPT</p>
+            <p className="text-destructive text-sm">YOU DIDN'T ATTEMPT</p>
           ) : (
             <>
               {selectedOptionId !== correctOptionId && (
@@ -74,7 +74,7 @@ function AttemptQuestionResponse({
           )}
         </section>
         <section>
-          <h1 className="text-sm">{title}</h1>
+          <h1 className="text-lg">{title}</h1>
         </section>
         <section className="grid grid-cols-2 gap-2">
           {options.map((op, i) => (
@@ -84,13 +84,13 @@ function AttemptQuestionResponse({
             >
               <p>{op.text}</p>
               {selectedOptionId === op.opid && op.opid === correctOptionId && (
-                <p className="text-xs text-green-500">YOUR ANSWER</p>
+                <p className="text-sm text-green-500">YOUR ANSWER</p>
               )}
               {correctOptionId === op.opid && selectedOptionId !== op.opid && (
-                <p className="text-xs text-green-500">CORRECT ANSWER</p>
+                <p className="text-sm text-green-500">CORRECT ANSWER</p>
               )}
               {selectedOptionId === op.opid && op.opid !== correctOptionId && (
-                <p className="text-xs text-destructive">INCORRECT</p>
+                <p className="text-sm text-destructive">INCORRECT</p>
               )}
             </div>
           ))}

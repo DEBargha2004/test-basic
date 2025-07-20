@@ -20,20 +20,20 @@ export default async function Page({
       <div className="grid grid-cols-4 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-muted-foreground">
+            <CardTitle className="text-lg text-muted-foreground">
               TOTAL MARKS SCORED
             </CardTitle>
           </CardHeader>
           <CardContent className="flex justify-start items-baseline gap-1">
             <Mark>{res.data?.score?.marks}</Mark>
-            <span className="text-xs text-muted-foreground">
+            <span className="text- text-muted-foreground">
               /{res.data?.totalMarks} marks
             </span>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-muted-foreground">
+            <CardTitle className="text-lg text-muted-foreground">
               CORRECT
             </CardTitle>
           </CardHeader>
@@ -41,12 +41,12 @@ export default async function Page({
             <Mark className="text-green-500">
               {res.data?.score?.positiveMarks}
             </Mark>
-            <span className="text-xs text-muted-foreground">marks</span>
+            <span className="text- text-muted-foreground">marks</span>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-muted-foreground">
+            <CardTitle className="text-lg text-muted-foreground">
               INCORRECT
             </CardTitle>
           </CardHeader>
@@ -54,12 +54,12 @@ export default async function Page({
             <Mark className="text-red-500">
               {res.data?.score?.negativeMarks}
             </Mark>
-            <span className="text-xs text-muted-foreground">marks</span>
+            <span className="text- text-muted-foreground">marks</span>
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-muted-foreground">
+            <CardTitle className="text-lg text-muted-foreground">
               UNANSWERED
             </CardTitle>
           </CardHeader>
@@ -67,7 +67,7 @@ export default async function Page({
             <Mark className="text-orange-400">
               {res.data?.score?.unansweredMarks}
             </Mark>
-            <span className="text-xs text-muted-foreground">marks</span>
+            <span className="text- text-muted-foreground">marks</span>
           </CardContent>
         </Card>
       </div>

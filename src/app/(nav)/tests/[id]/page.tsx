@@ -39,9 +39,9 @@ export default async function Page({
 
   return (
     <>
-      <section className="border rounded-xl shadow p-10">
+      <section className="border @container rounded-xl shadow p-10 space-y-3">
         <NavigateBack />
-        <div className="flex justify-between items-center">
+        <div className="flex @xl:flex-row flex-col-reverse justify-between @xl:items-center gap-6">
           <section className="space-y-8">
             <h1 className="text-xl font-semibold">{resp.data?.title}</h1>
 
@@ -108,7 +108,7 @@ export default async function Page({
               </Sheet>
             </section>
           </section>
-          <section className="h-[240px] aspect-[1.6]">
+          <section className="h-[240px] @xl:aspect-[1.6] @xl:w-fit w-full">
             <div className="h-full rounded-xl overflow-hidden border hover:[&>img]:scale-105 [&>img]:transition-all">
               <TestThumbnail
                 path={resp.data?.thumbnail ?? ""}

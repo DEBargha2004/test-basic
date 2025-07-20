@@ -8,8 +8,8 @@ export default function Layout({
   attempts: React.ReactNode;
 }) {
   return (
-    <main className="flex flex-col justify-center items-center pt-10">
-      <div className="w-3/5 space-y-10">
+    <main className="flex flex-col justify-center items-center p-10 @container">
+      <div className="@4xl:w-3/5 w-full space-y-10">
         {children}
         {attempts}
       </div>

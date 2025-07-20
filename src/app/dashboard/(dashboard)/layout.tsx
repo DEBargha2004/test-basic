@@ -8,7 +8,7 @@ export default function Layout({
   totalattempts: React.ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 gap-5">
       {children}
       {tests}
       {totalattempts}

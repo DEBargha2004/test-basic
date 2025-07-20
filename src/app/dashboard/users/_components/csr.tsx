@@ -85,8 +85,10 @@ export default function CSR({
                   </AvatarFallback>
                 </Avatar>
               </TableCell>
-              <TableCell className="font-semibold">{attempter.name}</TableCell>
-              <TableCell className="text-muted-foreground">
+              <TableCell className="font-semibold text-lg">
+                {attempter.name}
+              </TableCell>
+              <TableCell className="text-muted-foreground text-lg">
                 {attempter.email}
               </TableCell>
             </TableRow>

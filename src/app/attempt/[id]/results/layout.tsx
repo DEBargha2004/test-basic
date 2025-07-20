@@ -12,7 +12,7 @@ export default function Layout({
   return (
     <main className="min-h-dvh h-fit flex flex-col">
       <Navbar />
-      <div className="flex-1 w-3/5 mx-auto py-5 space-y-20">
+      <div className="flex-1 2xl:w-3/5 @2xl:p-0 p-4 w-full mx-auto py-5 space-y-10">
         {children}
         {markdistribution}
         {answers}

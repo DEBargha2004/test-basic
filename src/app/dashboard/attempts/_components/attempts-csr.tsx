@@ -46,7 +46,7 @@ export default function AttemptsCSR() {
     <Card className="p-0 gap-0">
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="[&>th]:text-lg">
             <TableHead className="p-4">ID</TableHead>
             <TableHead>User</TableHead>
             <TableHead>Test</TableHead>
@@ -69,17 +69,17 @@ export default function AttemptsCSR() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-sm font-medium">{attempt.user?.name}</h1>
-                  <p className="text-muted-foreground text-xs">
+                  <h1 className="text-lg font-medium">{attempt.user?.name}</h1>
+                  <p className="text-muted-foreground text-base">
                     {attempt.user?.email}
                   </p>
                 </div>
               </TableCell>
-              <TableCell>{attempt.title}</TableCell>
-              <TableCell>
+              <TableCell className="text-lg">{attempt.title}</TableCell>
+              <TableCell className="text-lg">
                 {attempt.score?.marks ?? 0}/{attempt.totalMarks}
               </TableCell>
-              <TableCell>
+              <TableCell className="text-lg">
                 {attempt.submittedAt
                   ? formatDuration(
                       (new Date(attempt.submittedAt)?.getTime() -

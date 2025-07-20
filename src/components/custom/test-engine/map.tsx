@@ -24,7 +24,7 @@ export default function TestQuestionsMap() {
         {questionAttemptTypes.map((qat) => (
           <div key={qat.id} className="flex items-center gap-2">
             <qat.icon className="shrink-0" />
-            <span className="text-xs whitespace-nowrap">{qat.label}</span>
+            <span className=" whitespace-nowrap">{qat.label}</span>
           </div>
         ))}
       </section>

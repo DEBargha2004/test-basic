@@ -71,14 +71,14 @@ export default function EndTestButton({
           </Button>
         )}
       </DrawerTrigger>
-      <DrawerContent className="w-1/3 mx-auto border">
+      <DrawerContent className="2xl:w-1/3 w-1/2 mx-auto border">
         <DrawerHeader>
-          <DrawerTitle>Want to end the test?</DrawerTitle>
-          <DrawerDescription>
+          <DrawerTitle className="text-xl">Want to end the test?</DrawerTitle>
+          <DrawerDescription className="text-lg">
             No changes would be allowed after submission
           </DrawerDescription>
         </DrawerHeader>
-        <section className="grid grid-cols-2 gap-4 p-4">
+        <section className="grid grid-cols-2 gap-2 p-3">
           <QAS>
             <QASIcon className="grid grid-cols-2">
               <answered.icon className="size-3/4 mb-auto mr-auto" />
@@ -177,7 +177,7 @@ function QASLabel({
   ...props
 }: React.ComponentProps<"h3">) {
   return (
-    <h3 className={cn("text-sm text-muted-foreground", className)} {...props}>
+    <h3 className={cn("text-lg text-muted-foreground", className)} {...props}>
       {children}
     </h3>
   );

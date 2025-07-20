@@ -40,7 +40,7 @@ export default function AppSidebar() {
                 isActive={item.isActive(pathname)}
                 tooltip={item.label}
               >
-                <Link href={item.href} target={item.target}>
+                <Link href={item.href} target={item.target} className="text-lg">
                   <item.icon />
                   <span>{item.label}</span>
                 </Link>

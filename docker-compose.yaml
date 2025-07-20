@@ -20,7 +20,17 @@ services:
     volumes:
       - miniodata:/data
     command: server /data --console-address ":9001"
-
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - db
+  #     - s3
 volumes:
   pgdata:
     driver: local

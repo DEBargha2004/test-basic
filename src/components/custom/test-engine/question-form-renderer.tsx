@@ -33,7 +33,7 @@ export default function QuestionFormRenderer({
         <QTag>{attempt?.marksDistribution?.negative}</QTag>
       </section>
       <section>
-        <h3 className="text-sm text-foreground/80">{activeQuestion?.title}</h3>
+        <h3 className="text-lg text-foreground/80">{activeQuestion?.title}</h3>
       </section>
       <section className="grid grid-cols-2 gap-4">
         {activeQuestion?.options.map((op, i) => (
@@ -53,7 +53,7 @@ export default function QuestionFormRenderer({
               readOnly
               checked={activeQuestion.selectedOptionId === op.opid}
             />
-            <label className="text-sm">{op.text}</label>
+            <label className="text-">{op.text}</label>
           </div>
         ))}
       </section>
